@@ -1,0 +1,80 @@
+<!doctype html>
+<html ng-app="mwl.calendar.docs">
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="//mattlewis92.github.io/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
+    <script src="example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//mattlewis92.github.io/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet">
+  </head>
+<body>
+
+<div ng-controller="KitchenSinkCtrl as vm">
+  <h2 class="text-center">{{ vm.calendarTitle }}</h2>
+
+  <div class="row">
+
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+
+        <button
+          class="btn btn-primary"
+          mwl-date-modifier
+          date="vm.viewDate"
+          decrement="vm.calendarView"
+          ng-click="vm.cellIsOpen = false">
+          Previous
+        </button>
+        <button
+          class="btn btn-default"
+          mwl-date-modifier
+          date="vm.viewDate"
+          set-to-today
+          ng-click="vm.cellIsOpen = false">
+          Today
+        </button>
+        <button
+          class="btn btn-primary"
+          mwl-date-modifier
+          date="vm.viewDate"
+          increment="vm.calendarView"
+          ng-click="vm.cellIsOpen = false">
+          Next
+        </button>
+      </div>
+    </div>
+
+    <br class="visible-xs visible-sm">
+
+    <div class="col-md-6 text-center">
+      <div class="btn-group">
+        <label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'year'" ng-click="vm.cellIsOpen = false">Year</label>
+        <label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'" ng-click="vm.cellIsOpen = false">Month</label>
+        <label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'" ng-click="vm.cellIsOpen = false">Week</label>
+        <label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'day'" ng-click="vm.cellIsOpen = false">Day</label>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <mwl-calendar
+    events="vm.events"
+    view="vm.calendarView"
+    view-title="vm.calendarTitle"
+    view-date="vm.viewDate"
+    on-event-click="vm.eventClicked(calendarEvent)"
+    on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+    cell-is-open="vm.cellIsOpen"
+    day-view-start="06:00"
+    day-view-end="22:59"
+    day-view-split="30"
+    cell-modifier="vm.modifyCell(calendarCell)"
+    cell-auto-open-disabled="true"
+    on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)">
+  </mwl-calendar>
+</div>
+
+  </body>
+</html>
